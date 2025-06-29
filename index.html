@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Satisfy&display=swap">
     <title>You Are Loved</title>
@@ -27,12 +27,12 @@
             text-align: center;
             box-shadow: 0 0 10px #00ffe0;
             animation: pulse 2s ease-in-out infinite;
-            }
-            @keyframes pulse {
+        }
+        
+        @keyframes pulse {
             0%, 100% { box-shadow: 0 0 20px #5100ff; }
             50% { box-shadow: 0 0 20px #00eeff; }
         }
-
         
         h1 {
             font-family: 'Satisfy', cursive;
@@ -57,34 +57,26 @@
         }
 
         #bgVideo {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        object-fit: cover;
-        z-index: -1;
-        filter: brightness(0.6);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.6);
         }
-
     </style>
 </head>
 <body>
     <div class="note-frame">
         <h1>✨ Dear You 🥰 ✨</h1>
-        <p> I love you as you are. You had tried, kept showing up. Go on with that still now. It's about consistency which makes you up.
-            You're trusted so no need to be overwhelmed with what others have already done.<br/> 
-            <br/>
+        <p>I love you as you are. You had tried, kept showing up. Go on with that still now. It's about consistency which makes you up.
+            You're trusted so no need to be overwhelmed with what others have already done.<br/><br/>
             You are graceful, fierce and elegant in your own way.Bothered of other people? Breathe. They are none of the VIPs of your life.
-            Get up with the fire in you. I am always there for you.<br/>
-            <br/>
-            Just come and sit with me . Everything will be fine.<br/>
-            <br/>
-            Sleep Well.<br/> 
-            You have done a good job today.<br/>
-            Sweet dreams 💙
-
-  
+            Get up with the fire in you. I am always there for you.<br/><br/>
+            Just come and sit with me. Everything will be fine.<br/><br/>
+            <span id="closing-message">Sleep Well.<br/>You have done a good job today.<br/>Sweet dreams 💙</span>
         </p>
         <p class="signature">— Blue 🌿💙</p>
     </div>
@@ -92,30 +84,35 @@
     <audio id="bgAudio" src="Blue.mp3" loop></audio>
 
     <script>
-    window.addEventListener("DOMContentLoaded", () => {
-      const audio = document.getElementById("bgAudio");
+        window.addEventListener("DOMContentLoaded", () => {
+            const audio = document.getElementById("bgAudio");
+            const playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                    const resumeAudio = () => {
+                        audio.play();
+                        document.removeEventListener("click", resumeAudio);
+                    };
+                    document.addEventListener("click", resumeAudio);
+                });
+            }
 
-      // Try playing as soon as the DOM is ready
-      const playPromise = audio.play();
+            // Message according to time
+            const closingMessage = document.getElementById("closing-message");
+            const hour = new Date().getHours();
 
-      // If autoplay is blocked, wait for user interaction
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          const resumeAudio = () => {
-            audio.play();
-            document.removeEventListener("click", resumeAudio);
-          };
-          document.addEventListener("click", resumeAudio);
+            if (hour >= 5 && hour < 12) {
+                closingMessage.innerHTML = "Have a wonderful morning.<br/>You're going to do great today.<br/>Shine bright 💙";
+            } else if (hour >= 12 && hour < 17) {
+                closingMessage.innerHTML = "Enjoy your afternoon.<br/>Remember to take breaks.<br/>You're doing amazing 💙";
+            } else if (hour >= 17 && hour < 21) {
+                closingMessage.innerHTML = "Have a peaceful evening.<br/>You've earned some rest.<br/>Relax and recharge 💙";
+            }
+            //Otherwise the original message will be kept intact
         });
-      }
-    });
-  </script>
+    </script>
     
-    <video autoplay muted loop id="bgVideo"
-    src="waves_video.mp4"
-    type="video/mp4">
-    </video>
-
-
+    <video autoplay muted loop id="bgVideo" src="waves_video.mp4" type="video/mp4"></video>
 </body>
 </html>
