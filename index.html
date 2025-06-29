@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Satisfy&display=swap">
+    <title>You Are Loved</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .note-frame {
+            background: rgba(33, 57, 240, 0);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 0 10px #00ffe0;
+            animation: pulse 2s ease-in-out infinite;
+            }
+            @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px #5100ff; }
+            50% { box-shadow: 0 0 20px #00eeff; }
+        }
+
+        
+        h1 {
+            font-family: 'Satisfy', cursive;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        p {
+            font-family: 'Satisfy', cursive;
+            text-align: center;
+            font-size: 20px;
+            line-height: 1.5;
+            margin-bottom: 0;
+            color: white;
+        }
+        
+        .signature {
+            font-style: italic;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        #bgVideo {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        z-index: -1;
+        filter: brightness(0.6);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="note-frame">
+        <h1>✨ Dear You 🥰 ✨</h1>
+        <p> I love you as you are. You had tried, kept showing up. Go on with that still now. It's about consistency which makes you up.
+            You're trusted so no need to be overwhelmed with what others have already done.<br/> 
+            <br/>
+            You are graceful, fierce and elegant in your own way.Bothered of other people? Breathe. They are none of the VIPs of your life.
+            Get up with the fire in you. I am always there for you.<br/>
+            <br/>
+            Just come and sit with me . Everything will be fine.<br/>
+            <br/>
+            Sleep Well.<br/> 
+            You have done a good job today.<br/>
+            Sweet dreams 💙
+
+  
+        </p>
+        <p class="signature">— Blue 🌿💙</p>
+    </div>
+
+    <audio id="bgAudio" src="Blue.mp3" loop></audio>
+
+    <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const audio = document.getElementById("bgAudio");
+
+      // Try playing as soon as the DOM is ready
+      const playPromise = audio.play();
+
+      // If autoplay is blocked, wait for user interaction
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          const resumeAudio = () => {
+            audio.play();
+            document.removeEventListener("click", resumeAudio);
+          };
+          document.addEventListener("click", resumeAudio);
+        });
+      }
+    });
+  </script>
+    
+    <video autoplay muted loop id="bgVideo"
+    src="C:\Users\pc\Downloads\waves_video.mp4"
+    type="video/mp4">
+    </video>
+
+
+</body>
+</html>
